@@ -1,0 +1,635 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background-color: #ffffff;
+
+    color: #111111;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+.pagina {
+
+    width: 92%;
+
+    max-width: 1100px;
+
+    min-height: 650px;
+
+    background-color: #ffffff;
+
+    border: 8px solid #f5b400;
+
+    display: grid;
+
+    grid-template-columns: 40% 60%;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.12);
+
+}
+
+
+/* ================================
+   CABEÇALHO
+================================ */
+
+.cabecalho {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 40px;
+
+    border-right: 1px solid #eeeeee;
+
+    text-align: center;
+
+}
+
+
+/* ================================
+   IMAGEM DA LOGO
+================================ */
+
+.logo-container {
+
+    width: 210px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+
+}
+
+
+.logo-imagem {
+
+    width: 100%;
+
+    max-width: 210px;
+
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+
+}
+
+
+/* ================================
+   TEXTO SELPE
+================================ */
+
+.nome-logo {
+
+    font-size: 92px;
+
+    line-height: 0.85;
+
+    font-weight: 900;
+
+    letter-spacing: -8px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+.azul {
+
+    color: #1477d4;
+
+}
+
+
+.verde {
+
+    color: #13852b;
+
+}
+
+
+/* ================================
+   SUBTÍTULO
+================================ */
+
+.subtitulo {
+
+    margin-top: 18px;
+
+    max-width: 330px;
+
+    text-align: center;
+
+    color: #17649d;
+
+    font-size: 13px;
+
+    line-height: 1.45;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+}
+
+
+/* ================================
+   ÁREA DO LOGIN
+================================ */
+
+.area-login {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    width: 80%;
+
+    margin: auto;
+
+}
+
+
+/* ================================
+   SELETOR ALUNO / PROFESSOR
+================================ */
+
+.seletor {
+
+    display: flex;
+
+    width: 100%;
+
+    margin-bottom: 25px;
+
+    border-bottom: 2px solid #dddddd;
+
+}
+
+
+.tipo {
+
+    flex: 1;
+
+    padding: 14px;
+
+    border: none;
+
+    background-color: #eeeeee;
+
+    color: #555555;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s,
+        color 0.2s;
+
+}
+
+
+.tipo:hover {
+
+    background-color: #dddddd;
+
+}
+
+
+.tipo.ativo {
+
+    background-color: #ffc400;
+
+    color: #111111;
+
+}
+
+
+/* ================================
+   TÍTULO
+================================ */
+
+.area-login h1 {
+
+    font-size: 23px;
+
+    margin-bottom: 27px;
+
+    font-weight: bold;
+
+    color: #111111;
+
+}
+
+
+/* ================================
+   CAMPOS
+================================ */
+
+.campo {
+
+    margin-bottom: 22px;
+
+}
+
+
+.campo label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 19px;
+
+    color: #111111;
+
+}
+
+
+.campo input {
+
+    width: 100%;
+
+    height: 50px;
+
+    padding: 10px 14px;
+
+    border: 2px solid #8b8b8b;
+
+    background-color: #ffffff;
+
+    font-size: 17px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+
+}
+
+
+.campo input::placeholder {
+
+    color: #999999;
+
+}
+
+
+.campo input:focus {
+
+    border-color: #1477d4;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(20, 119, 212, 0.12);
+
+}
+
+
+/* ================================
+   CAMPO DO PROFESSOR
+================================ */
+
+.professor-campo {
+
+    display: none;
+
+}
+
+
+/* ================================
+   AÇÕES
+================================ */
+
+.acoes {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 30px;
+
+}
+
+
+/* ================================
+   BOTÃO ACESSAR
+================================ */
+
+.botao-acessar {
+
+    border: none;
+
+    background-color: #1477d4;
+
+    color: #ffffff;
+
+    padding: 14px 28px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s,
+        transform 0.1s;
+
+}
+
+
+.botao-acessar:hover {
+
+    background-color: #075cae;
+
+}
+
+
+.botao-acessar:active {
+
+    transform: scale(0.98);
+
+}
+
+
+/* ================================
+   BOTÃO CADASTRO
+================================ */
+
+.botao-cadastro {
+
+    border: none;
+
+    background: transparent;
+
+    color: #477ba9;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+}
+
+
+.botao-cadastro:hover {
+
+    color: #075cae;
+
+}
+
+
+/* ================================
+   MENSAGEM
+================================ */
+
+.mensagem {
+
+    margin-top: 20px;
+
+    font-weight: bold;
+
+    font-size: 15px;
+
+}
+
+
+.mensagem.erro {
+
+    color: #d71920;
+
+}
+
+
+.mensagem.sucesso {
+
+    color: #15852b;
+
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 850px) {
+
+    .pagina {
+
+        width: 96%;
+
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+
+    .cabecalho {
+
+        padding: 30px 20px;
+
+    }
+
+
+    .logo-container {
+
+        width: 170px;
+
+    }
+
+
+    .nome-logo {
+
+        font-size: 75px;
+
+    }
+
+
+    .area-login {
+
+        width: 85%;
+
+    }
+
+}
+
+
+/* ================================
+   CELULAR
+================================ */
+
+@media (max-width: 700px) {
+
+    body {
+
+        padding: 10px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .pagina {
+
+        width: 100%;
+
+        min-height: auto;
+
+        grid-template-columns: 1fr;
+
+        margin: 10px 0;
+
+    }
+
+
+    .cabecalho {
+
+        border-right: none;
+
+        border-bottom: 1px solid #eeeeee;
+
+        padding: 35px 15px;
+
+    }
+
+
+    .logo-container {
+
+        width: 180px;
+
+    }
+
+
+    .nome-logo {
+
+        font-size: 70px;
+
+    }
+
+
+    .area-login {
+
+        width: 85%;
+
+        padding: 40px 0;
+
+    }
+
+}
+
+
+/* ================================
+   CELULAR PEQUENO
+================================ */
+
+@media (max-width: 450px) {
+
+    .cabecalho {
+
+        padding: 25px 10px;
+
+    }
+
+
+    .logo-container {
+
+        width: 150px;
+
+    }
+
+
+    .nome-logo {
+
+        font-size: 58px;
+
+        letter-spacing: -6px;
+
+    }
+
+
+    .subtitulo {
+
+        font-size: 10px;
+
+    }
+
+
+    .area-login {
+
+        width: 88%;
+
+        padding: 30px 0;
+
+    }
+
+
+    .area-login h1 {
+
+        font-size: 20px;
+
+    }
+
+
+    .acoes {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+
+    }
+
+
+    .botao-acessar {
+
+        width: 100%;
+
+    }
+
+}

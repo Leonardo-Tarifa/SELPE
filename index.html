@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        SELPE - Secretaria de Esportes e Lazer de Peruíbe
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="pagina">
+
+        <header class="cabecalho">
+
+            <div class="logo-container">
+
+                <img
+                    src="logo.png"
+                    alt="Logo SELPE"
+                    class="logo-imagem"
+                >
+
+            </div>
+
+            <div class="nome-logo">
+
+                <span class="azul">sel</span><span class="verde">pe</span>
+
+            </div>
+
+            <p class="subtitulo">
+
+                SECRETARIA DE ESPORTES E LAZER
+                <br>
+                DE PERUÍBE
+
+            </p>
+
+        </header>
+
+
+        <main class="area-login">
+
+            <div class="seletor">
+
+                <button
+                    type="button"
+                    id="btnAluno"
+                    class="tipo ativo"
+                    onclick="selecionarTipo('aluno')"
+                >
+                    ALUNO
+                </button>
+
+                <button
+                    type="button"
+                    id="btnProfessor"
+                    class="tipo"
+                    onclick="selecionarTipo('professor')"
+                >
+                    PROFESSOR
+                </button>
+
+            </div>
+
+
+            <h1 id="tituloLogin">
+
+                LOGIN DO ALUNO
+
+            </h1>
+
+
+            <form
+                id="formLogin"
+                onsubmit="realizarLogin(event)"
+            >
+
+                <div class="campo">
+
+                    <label for="login">
+                        Login
+                    </label>
+
+                    <input
+                        type="text"
+                        id="login"
+                        name="login"
+                        placeholder="Digite seu login"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo">
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <div
+                    class="campo professor-campo"
+                    id="campoCodigo"
+                >
+
+                    <label for="codigoProfessor">
+
+                        Código do professor
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="codigoProfessor"
+                        name="codigoProfessor"
+                        placeholder="Digite o código do professor"
+                    >
+
+                </div>
+
+
+                <div class="acoes">
+
+                    <button
+                        type="submit"
+                        class="botao-acessar"
+                    >
+
+                        ACESSAR
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="botao-cadastro"
+                        onclick="abrirCadastro()"
+                    >
+
+                        CADASTRE-SE
+
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <p
+                id="mensagem"
+                class="mensagem"
+            ></p>
+
+        </main>
+
+    </div>
+
+
+    <script src="teste.js"></script>
+
+</body>
+
+</html>
