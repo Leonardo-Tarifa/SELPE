@@ -10,9 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        SELPE - Secretaria de Esportes e Lazer de Peruíbe
-    </title>
+    <title>SELPE - Secretaria de Esportes e Lazer de Peruíbe</title>
 
     <link
         rel="stylesheet"
@@ -23,164 +21,941 @@
 
 <body>
 
-    <div class="pagina">
+    <div id="aplicacao">
 
-        <header class="cabecalho">
+        <section
+            id="telaLogin"
+            class="tela tela-login"
+        >
 
-            <div class="logo-container">
+            <div class="pagina">
 
-                <img
-                    src="logo.png"
-                    alt="Logo SELPE"
-                    class="logo-imagem"
-                >
+                <header class="cabecalho">
 
-            </div>
+                    <div class="logo-container">
 
-            <div class="nome-logo">
+                        <img
+                            src="logo.png"
+                            alt="Logo SELPE"
+                            class="logo-imagem"
+                        >
 
-                <span class="azul">sel</span><span class="verde">pe</span>
+                    </div>
 
-            </div>
+                    <div class="nome-logo">
 
-            <p class="subtitulo">
+                        <span class="azul">sel</span><span class="verde">pe</span>
 
-                SECRETARIA DE ESPORTES E LAZER
-                <br>
-                DE PERUÍBE
+                    </div>
 
-            </p>
+                    <p class="subtitulo">
 
-        </header>
+                        SECRETARIA DE ESPORTES E LAZER
+                        <br>
+                        DE PERUÍBE
 
+                    </p>
 
-        <main class="area-login">
-
-            <div class="seletor">
-
-                <button
-                    type="button"
-                    id="btnAluno"
-                    class="tipo ativo"
-                    onclick="selecionarTipo('aluno')"
-                >
-                    ALUNO
-                </button>
-
-                <button
-                    type="button"
-                    id="btnProfessor"
-                    class="tipo"
-                    onclick="selecionarTipo('professor')"
-                >
-                    PROFESSOR
-                </button>
-
-            </div>
+                </header>
 
 
-            <h1 id="tituloLogin">
+                <main class="area-login">
 
-                LOGIN DO ALUNO
+                    <div class="seletor">
 
-            </h1>
+                        <button
+                            type="button"
+                            id="btnAluno"
+                            class="tipo ativo"
+                            onclick="selecionarTipo('aluno')"
+                        >
+                            ALUNO
+                        </button>
+
+                        <button
+                            type="button"
+                            id="btnProfessor"
+                            class="tipo"
+                            onclick="selecionarTipo('professor')"
+                        >
+                            PROFESSOR
+                        </button>
+
+                    </div>
 
 
-            <form
-                id="formLogin"
-                onsubmit="realizarLogin(event)"
-            >
+                    <h1 id="tituloLogin">
+                        LOGIN DO ALUNO
+                    </h1>
 
-                <div class="campo">
 
-                    <label for="login">
-                        Login
-                    </label>
-
-                    <input
-                        type="text"
-                        id="login"
-                        name="login"
-                        placeholder="Digite seu login"
-                        autocomplete="username"
-                        required
+                    <form
+                        id="formLogin"
+                        onsubmit="realizarLogin(event)"
                     >
+
+                        <div class="campo">
+
+                            <label for="login">
+                                Login
+                            </label>
+
+                            <input
+                                type="text"
+                                id="login"
+                                placeholder="Digite seu login"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="senha">
+                                Senha
+                            </label>
+
+                            <input
+                                type="password"
+                                id="senha"
+                                placeholder="Digite sua senha"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="campo professor-campo"
+                            id="campoCodigo"
+                        >
+
+                            <label for="codigoProfessor">
+                                Código do professor
+                            </label>
+
+                            <input
+                                type="text"
+                                id="codigoProfessor"
+                                placeholder="Digite o código do professor"
+                            >
+
+                        </div>
+
+
+                        <div class="acoes">
+
+                            <button
+                                type="submit"
+                                class="botao-acessar"
+                            >
+                                ACESSAR
+                            </button>
+
+                            <button
+                                type="button"
+                                class="botao-cadastro"
+                                onclick="abrirCadastro()"
+                            >
+                                CADASTRE-SE
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                    <p
+                        id="mensagem"
+                        class="mensagem"
+                    ></p>
+
+                </main>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="telaSistema"
+            class="tela tela-sistema"
+        >
+
+            <header class="barra-superior">
+
+                <div class="marca">
+
+                    <img
+                        src="logo.png"
+                        alt="SELPE"
+                        class="logo-pequena"
+                    >
+
+                    <div>
+
+                        <strong>SELPE</strong>
+
+                        <span>
+                            Secretaria de Esportes e Lazer
+                        </span>
+
+                    </div>
 
                 </div>
 
 
-                <div class="campo">
+                <div class="usuario-barra">
 
-                    <label for="senha">
-                        Senha
-                    </label>
-
-                    <input
-                        type="password"
-                        id="senha"
-                        name="senha"
-                        placeholder="Digite sua senha"
-                        autocomplete="current-password"
-                        required
-                    >
-
-                </div>
-
-
-                <div
-                    class="campo professor-campo"
-                    id="campoCodigo"
-                >
-
-                    <label for="codigoProfessor">
-
-                        Código do professor
-
-                    </label>
-
-                    <input
-                        type="text"
-                        id="codigoProfessor"
-                        name="codigoProfessor"
-                        placeholder="Digite o código do professor"
-                    >
-
-                </div>
-
-
-                <div class="acoes">
+                    <span id="nomeUsuario">
+                        Usuário
+                    </span>
 
                     <button
-                        type="submit"
-                        class="botao-acessar"
+                        onclick="logout()"
+                        class="botao-sair"
                     >
-
-                        ACESSAR
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        class="botao-cadastro"
-                        onclick="abrirCadastro()"
-                    >
-
-                        CADASTRE-SE
-
+                        SAIR
                     </button>
 
                 </div>
 
-            </form>
+            </header>
 
 
-            <p
-                id="mensagem"
-                class="mensagem"
-            ></p>
+            <div class="estrutura-sistema">
 
-        </main>
+                <aside class="menu-lateral">
+
+                    <button
+                        class="menu-item ativo"
+                        onclick="mostrarTela('inicio')"
+                        data-tela="inicio"
+                    >
+                        Início
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        onclick="mostrarTela('modalidades')"
+                        data-tela="modalidades"
+                    >
+                        Modalidades
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        onclick="mostrarTela('horarios')"
+                        data-tela="horarios"
+                    >
+                        Horários
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        onclick="mostrarTela('inscricao')"
+                        data-tela="inscricao"
+                    >
+                        Inscrição
+                    </button>
+
+                    <button
+                        class="menu-item"
+                        onclick="mostrarTela('cadastro')"
+                        data-tela="cadastro"
+                    >
+                        Cadastro
+                    </button>
+
+                    <button
+                        class="menu-item professor-menu"
+                        onclick="mostrarTela('alunos')"
+                        data-tela="alunos"
+                    >
+                        Alunos
+                    </button>
+
+                    <button
+                        class="menu-item professor-menu"
+                        onclick="mostrarTela('gestao')"
+                        data-tela="gestao"
+                    >
+                        Gestão
+                    </button>
+
+                </aside>
+
+
+                <main class="conteudo-sistema">
+
+                    <section
+                        id="inicio"
+                        class="pagina-sistema ativa"
+                    >
+
+                        <div class="cabecalho-pagina">
+
+                            <div>
+
+                                <h1>
+                                    Bem-vindo ao SELPE
+                                </h1>
+
+                                <p>
+                                    Secretaria de Esportes e Lazer de Peruíbe
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="cards">
+
+                            <div class="card">
+
+                                <span class="card-numero">
+                                    <span id="totalModalidades">
+                                        0
+                                    </span>
+                                </span>
+
+                                <span class="card-titulo">
+                                    Modalidades
+                                </span>
+
+                            </div>
+
+
+                            <div class="card">
+
+                                <span class="card-numero">
+                                    <span id="totalInscricoes">
+                                        0
+                                    </span>
+                                </span>
+
+                                <span class="card-titulo">
+                                    Inscrições
+                                </span>
+
+                            </div>
+
+
+                            <div class="card professor-card">
+
+                                <span class="card-numero">
+                                    <span id="totalAlunos">
+                                        0
+                                    </span>
+                                </span>
+
+                                <span class="card-titulo">
+                                    Alunos
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="painel">
+
+                            <h2>
+                                Acesso rápido
+                            </h2>
+
+                            <div class="acoes-grid">
+
+                                <button
+                                    onclick="mostrarTela('modalidades')"
+                                    class="acao"
+                                >
+                                    Consultar modalidades
+                                </button>
+
+                                <button
+                                    onclick="mostrarTela('horarios')"
+                                    class="acao"
+                                >
+                                    Consultar horários
+                                </button>
+
+                                <button
+                                    onclick="mostrarTela('inscricao')"
+                                    class="acao"
+                                >
+                                    Fazer inscrição
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <section
+                        id="modalidades"
+                        class="pagina-sistema"
+                    >
+
+                        <div class="cabecalho-pagina">
+
+                            <div>
+
+                                <h1>
+                                    Modalidades Esportivas
+                                </h1>
+
+                                <p>
+                                    Consulte as modalidades disponíveis.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="listaModalidades"
+                            class="grid-modalidades"
+                        ></div>
+
+                    </section>
+
+
+                    <section
+                        id="horarios"
+                        class="pagina-sistema"
+                    >
+
+                        <div class="cabecalho-pagina">
+
+                            <div>
+
+                                <h1>
+                                    Horários e Unidades
+                                </h1>
+
+                                <p>
+                                    Consulte os horários disponíveis por modalidade e unidade.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="filtros">
+
+                            <div class="campo-filtro">
+
+                                <label for="filtroModalidade">
+                                    Modalidade
+                                </label>
+
+                                <select id="filtroModalidade">
+                                    <option value="">
+                                        Todas
+                                    </option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="campo-filtro">
+
+                                <label for="filtroUnidade">
+                                    Unidade
+                                </label>
+
+                                <select id="filtroUnidade">
+                                    <option value="">
+                                        Todas
+                                    </option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="listaHorarios"
+                            class="lista-horarios"
+                        ></div>
+
+                    </section>
+
+
+                    <section
+                        id="inscricao"
+                        class="pagina-sistema"
+                    >
+
+                        <div class="cabecalho-pagina">
+
+                            <div>
+
+                                <h1>
+                                    Ficha de Inscrição
+                                </h1>
+
+                                <p>
+                                    Preencha os dados para realizar uma inscrição.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <form
+                            id="formInscricao"
+                            class="form-sistema"
+                            onsubmit="realizarInscricao(event)"
+                        >
+
+                            <div class="linha-form">
+
+                                <div class="campo-form">
+
+                                    <label for="inscricaoNome">
+                                        Nome do aluno
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="inscricaoNome"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="linha-form">
+
+                                <div class="campo-form">
+
+                                    <label for="inscricaoModalidade">
+                                        Modalidade
+                                    </label>
+
+                                    <select
+                                        id="inscricaoModalidade"
+                                        required
+                                    ></select>
+
+                                </div>
+
+
+                                <div class="campo-form">
+
+                                    <label for="inscricaoUnidade">
+                                        Unidade
+                                    </label>
+
+                                    <select
+                                        id="inscricaoUnidade"
+                                        required
+                                    ></select>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="linha-form">
+
+                                <div class="campo-form">
+
+                                    <label for="inscricaoHorario">
+                                        Horário
+                                    </label>
+
+                                    <select
+                                        id="inscricaoHorario"
+                                        required
+                                    ></select>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="acoes-form">
+
+                                <button
+                                    type="submit"
+                                    class="botao-principal"
+                                >
+                                    CONFIRMAR INSCRIÇÃO
+                                </button>
+
+                            </div>
+
+                        </form>
+
+
+                        <div
+                            id="minhasInscricoes"
+                            class="painel inscricoes-painel"
+                        >
+
+                            <h2>
+                                Minhas inscrições
+                            </h2>
+
+                            <div id="listaInscricoes"></div>
+
+                        </div>
+
+                    </section>
+
+
+                    <section
+                        id="cadastro"
+                        class="pagina-sistema"
+                    >
+
+                        <div class="cabecalho-pagina">
+
+                            <div>
+
+                                <h1>
+                                    Cadastro de Aluno / Atleta
+                                </h1>
+
+                                <p>
+                                    Cadastro dos dados do participante.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <form
+                            id="formCadastro"
+                            class="form-sistema"
+                            onsubmit="cadastrarAluno(event)"
+                        >
+
+                            <div class="linha-form">
+
+                                <div class="campo-form campo-grande">
+
+                                    <label for="nomeAluno">
+                                        Nome completo
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="nomeAluno"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="linha-form">
+
+                                <div class="campo-form">
+
+                                    <label for="nascimentoAluno">
+                                        Data de nascimento
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="nascimentoAluno"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="campo-form">
+
+                                    <label for="cpfAluno">
+                                        CPF
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="cpfAluno"
+                                        placeholder="000.000.000-00"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="linha-form">
+
+                                <div class="campo-form">
+
+                                    <label for="telefoneAluno">
+                                        Telefone
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="telefoneAluno"
+                                    >
+
+                                </div>
+
+
+                                <div class="campo-form">
+
+                                    <label for="emailAluno">
+                                        E-mail
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="emailAluno"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="linha-form">
+
+                                <div class="campo-form campo-grande">
+
+                                    <label for="enderecoAluno">
+                                        Endereço
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="enderecoAluno"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="linha-form">
+
+                                <div class="campo-form">
+
+                                    <label for="responsavelAluno">
+                                        Responsável
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="responsavelAluno"
+                                    >
+
+                                </div>
+
+
+                                <div class="campo-form">
+
+                                    <label for="telefoneResponsavel">
+                                        Telefone do responsável
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="telefoneResponsavel"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="linha-form">
+
+                                <div class="campo-form campo-grande">
+
+                                    <label for="observacoesAluno">
+                                        Observações
+                                    </label>
+
+                                    <textarea
+                                        id="observacoesAluno"
+                                        rows="4"
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="acoes-form">
+
+                                <button
+                                    type="submit"
+                                    class="botao-principal"
+                                >
+                                    SALVAR CADASTRO
+                                </button>
+
+                                <button
+                                    type="reset"
+                                    class="botao-secundario"
+                                >
+                                    LIMPAR
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </section>
+
+
+                    <section
+                        id="alunos"
+                        class="pagina-sistema"
+                    >
+
+                        <div class="cabecalho-pagina">
+
+                            <div>
+
+                                <h1>
+                                    Alunos / Atletas
+                                </h1>
+
+                                <p>
+                                    Consulta dos alunos cadastrados.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="barra-pesquisa">
+
+                            <input
+                                type="search"
+                                id="pesquisaAluno"
+                                placeholder="Pesquisar aluno..."
+                                oninput="listarAlunos()"
+                            >
+
+                        </div>
+
+
+                        <div class="tabela-container">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Nome
+                                        </th>
+
+                                        <th>
+                                            Nascimento
+                                        </th>
+
+                                        <th>
+                                            Telefone
+                                        </th>
+
+                                        <th>
+                                            Cadastro
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody
+                                    id="tabelaAlunos"
+                                ></tbody>
+
+                            </table>
+
+                        </div>
+
+                    </section>
+
+
+                    <section
+                        id="gestao"
+                        class="pagina-sistema"
+                    >
+
+                        <div class="cabecalho-pagina">
+
+                            <div>
+
+                                <h1>
+                                    Gestão
+                                </h1>
+
+                                <p>
+                                    Área administrativa da simulação.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="painel">
+
+                            <h2>
+                                Informações do sistema
+                            </h2>
+
+                            <div class="informacoes">
+
+                                <p>
+                                    Modalidades cadastradas:
+                                    <strong id="gestaoModalidades">
+                                        0
+                                    </strong>
+                                </p>
+
+                                <p>
+                                    Alunos cadastrados:
+                                    <strong id="gestaoAlunos">
+                                        0
+                                    </strong>
+                                </p>
+
+                                <p>
+                                    Inscrições realizadas:
+                                    <strong id="gestaoInscricoes">
+                                        0
+                                    </strong>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </main>
+
+            </div>
+
+        </section>
 
     </div>
 
