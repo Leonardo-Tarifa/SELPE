@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cadastro - SELPE</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="tela tela-login">
+
+        <div class="pagina">
+
+            <header class="cabecalho">
+
+                <div class="logo-container">
+
+                    <img
+                        src="logo.png"
+                        alt="Logo SELPE"
+                        class="logo-imagem"
+                    >
+
+                </div>
+
+                <div class="nome-logo">
+
+                    <span class="azul">sel</span><span class="verde">pe</span>
+
+                </div>
+
+                <p class="subtitulo">
+
+                    SECRETARIA DE ESPORTES E LAZER
+                    <br>
+                    DE PERUÍBE
+
+                </p>
+
+            </header>
+
+
+            <main class="area-login">
+
+                <h1>
+                    CADASTRO DE ALUNO
+                </h1>
+
+                <p style="margin-bottom: 25px; color: #666666;">
+                    Preencha seus dados para criar seu acesso ao SELPE.
+                </p>
+
+
+                <form
+                    id="formCadastro"
+                    onsubmit="realizarCadastro(event)"
+                >
+
+                    <div class="campo">
+
+                        <label for="nome">
+                            Nome completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nome"
+                            placeholder="Digite seu nome completo"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="email">
+                            E-mail
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Digite seu e-mail"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="telefone">
+                            Telefone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="telefone"
+                            placeholder="Digite seu telefone"
+                        >
+
+                    </div>
+
+
+                    <div class="acoes">
+
+                        <button
+                            type="submit"
+                            class="botao-acessar"
+                        >
+                            CADASTRAR
+                        </button>
+
+                        <button
+                            type="button"
+                            class="botao-cadastro"
+                            onclick="voltarLogin()"
+                        >
+                            VOLTAR AO LOGIN
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <p
+                    id="mensagemCadastro"
+                    class="mensagem"
+                ></p>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <script src="cadastro.js"></script>
+
+</body>
+
+</html>
