@@ -814,3 +814,45 @@ border: 1px dashed #cccccc;
 
 
 }
+.pagina-recuperacao {
+    grid-template-columns: 40% 60%;
+}
+
+.texto-recuperacao {
+    color: #666666;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.acoes-recuperacao {
+    margin-top: 10px;
+}
+
+.link-voltar {
+    display: block;
+    margin-top: 25px;
+    color: #477ba9;
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.link-voltar:hover {
+    color: #075cae;
+}
+
+#btnRecuperar:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+
+    .pagina-recuperacao {
+        grid-template-columns: 1fr;
+    }
+
+}
+
