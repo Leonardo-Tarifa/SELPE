@@ -37,13 +37,7 @@ try {
     exit;
 }
 
-
 $acao = $_GET["acao"] ?? "";
-
-
-/*
-LOGIN
-*/
 
 if ($acao === "login") {
 
@@ -64,7 +58,6 @@ if ($acao === "login") {
         $dados["tipo"] ?? ""
     );
 
-
     if (
         empty($login) ||
         empty($senhaLogin) ||
@@ -80,7 +73,6 @@ if ($acao === "login") {
 
         exit;
     }
-
 
     if ($tipo === "aluno") {
 
@@ -103,28 +95,21 @@ if ($acao === "login") {
                 AND u.ativo = TRUE
         ";
 
-
         $consulta = $pdo->prepare($sql);
-
 
         $consulta->execute([
             $login,
             $senhaLogin
         ]);
 
-
         $usuarioEncontrado =
             $consulta->fetch();
 
-    }
-
-
-    elseif ($tipo === "professor") {
+    } elseif ($tipo === "professor") {
 
         $codigo = trim(
             $dados["codigo"] ?? ""
         );
-
 
         if (empty($codigo)) {
 
@@ -137,7 +122,6 @@ if ($acao === "login") {
 
             exit;
         }
-
 
         $sql = "
             SELECT
@@ -162,9 +146,7 @@ if ($acao === "login") {
                 AND p.ativo = TRUE
         ";
 
-
         $consulta = $pdo->prepare($sql);
-
 
         $consulta->execute([
             $login,
@@ -172,14 +154,10 @@ if ($acao === "login") {
             $codigo
         ]);
 
-
         $usuarioEncontrado =
             $consulta->fetch();
 
-    }
-
-
-    else {
+    } else {
 
         http_response_code(400);
 
@@ -190,7 +168,6 @@ if ($acao === "login") {
 
         exit;
     }
-
 
     if (!$usuarioEncontrado) {
 
@@ -204,7 +181,6 @@ if ($acao === "login") {
         exit;
     }
 
-
     echo json_encode([
         "sucesso" => true,
         "mensagem" => "Login realizado com sucesso.",
@@ -214,18 +190,12 @@ if ($acao === "login") {
     exit;
 }
 
-
-/*
-CADASTRAR ALUNO
-*/
-
 if ($acao === "cadastrar_aluno") {
 
     $dados = json_decode(
         file_get_contents("php://input"),
         true
     );
-
 
     $nome = trim(
         $dados["nome_completo"] ?? ""
@@ -239,7 +209,6 @@ if ($acao === "cadastrar_aluno") {
         $dados["telefone"] ?? ""
     );
 
-
     if (empty($nome) || empty($email)) {
 
         http_response_code(400);
@@ -252,11 +221,9 @@ if ($acao === "cadastrar_aluno") {
         exit;
     }
 
-
     try {
 
         $pdo->beginTransaction();
-
 
         $loginBase =
             strtolower(
@@ -267,19 +234,13 @@ if ($acao === "cadastrar_aluno") {
                 )
             );
 
-
         if (empty($loginBase)) {
-
             $loginBase = "aluno";
-
         }
-
 
         $login = $loginBase;
 
-
         $contador = 1;
-
 
         while (true) {
 
@@ -289,26 +250,19 @@ if ($acao === "cadastrar_aluno") {
                  WHERE login = ?"
             );
 
-
             $verificar->execute([
                 $login
             ]);
 
-
             if (!$verificar->fetch()) {
-
                 break;
-
             }
-
 
             $login =
                 $loginBase . $contador;
 
             $contador++;
-
         }
-
 
         $senhaGerada =
             substr(
@@ -318,7 +272,6 @@ if ($acao === "cadastrar_aluno") {
                 0,
                 8
             );
-
 
         $sqlUsuario = "
             INSERT INTO usuarios
@@ -335,20 +288,16 @@ if ($acao === "cadastrar_aluno") {
             )
         ";
 
-
         $consulta =
             $pdo->prepare($sqlUsuario);
-
 
         $consulta->execute([
             $login,
             $senhaGerada
         ]);
 
-
         $idUsuario =
             $pdo->lastInsertId();
-
 
         $sqlAluno = "
             INSERT INTO alunos
@@ -367,10 +316,8 @@ if ($acao === "cadastrar_aluno") {
             )
         ";
 
-
         $consulta =
             $pdo->prepare($sqlAluno);
-
 
         $consulta->execute([
             $idUsuario,
@@ -379,9 +326,7 @@ if ($acao === "cadastrar_aluno") {
             $telefone
         ]);
 
-
         $pdo->commit();
-
 
         echo json_encode([
             "sucesso" => true,
@@ -389,7 +334,6 @@ if ($acao === "cadastrar_aluno") {
             "login" => $login,
             "senha" => $senhaGerada
         ]);
-
 
     } catch (PDOException $erro) {
 
@@ -401,16 +345,10 @@ if ($acao === "cadastrar_aluno") {
             "sucesso" => false,
             "mensagem" => "Erro ao cadastrar aluno."
         ]);
-
     }
 
     exit;
 }
-
-
-/*
-LISTAR ALUNOS
-*/
 
 if ($acao === "listar_alunos") {
 
@@ -438,14 +376,11 @@ if ($acao === "listar_alunos") {
         ORDER BY a.nome_completo
     ";
 
-
     $consulta =
         $pdo->query($sql);
 
-
     $alunos =
         $consulta->fetchAll();
-
 
     echo json_encode([
         "sucesso" => true,
@@ -455,17 +390,11 @@ if ($acao === "listar_alunos") {
     exit;
 }
 
-
-/*
-BUSCAR ALUNO
-*/
-
 if ($acao === "buscar_aluno") {
 
     $id = intval(
         $_GET["id"] ?? 0
     );
-
 
     if ($id <= 0) {
 
@@ -479,7 +408,6 @@ if ($acao === "buscar_aluno") {
         exit;
     }
 
-
     $sql = "
         SELECT
             a.*,
@@ -490,19 +418,15 @@ if ($acao === "buscar_aluno") {
         WHERE a.id_aluno = ?
     ";
 
-
     $consulta =
         $pdo->prepare($sql);
-
 
     $consulta->execute([
         $id
     ]);
 
-
     $aluno =
         $consulta->fetch();
-
 
     if (!$aluno) {
 
@@ -516,7 +440,6 @@ if ($acao === "buscar_aluno") {
         exit;
     }
 
-
     echo json_encode([
         "sucesso" => true,
         "aluno" => $aluno
@@ -524,11 +447,6 @@ if ($acao === "buscar_aluno") {
 
     exit;
 }
-
-
-/*
-LISTAR PROFESSORES
-*/
 
 if ($acao === "listar_professores") {
 
@@ -549,14 +467,11 @@ if ($acao === "listar_professores") {
         ORDER BY p.nome_completo
     ";
 
-
     $consulta =
         $pdo->query($sql);
 
-
     $professores =
         $consulta->fetchAll();
-
 
     echo json_encode([
         "sucesso" => true,
@@ -565,11 +480,6 @@ if ($acao === "listar_professores") {
 
     exit;
 }
-
-
-/*
-LISTAR MODALIDADES
-*/
 
 if ($acao === "listar_modalidades") {
 
@@ -586,14 +496,11 @@ if ($acao === "listar_modalidades") {
         ORDER BY nome
     ";
 
-
     $consulta =
         $pdo->query($sql);
 
-
     $modalidades =
         $consulta->fetchAll();
-
 
     echo json_encode([
         "sucesso" => true,
@@ -602,11 +509,6 @@ if ($acao === "listar_modalidades") {
 
     exit;
 }
-
-
-/*
-LISTAR UNIDADES
-*/
 
 if ($acao === "listar_unidades") {
 
@@ -627,14 +529,11 @@ if ($acao === "listar_unidades") {
         ORDER BY nome
     ";
 
-
     $consulta =
         $pdo->query($sql);
 
-
     $unidades =
         $consulta->fetchAll();
-
 
     echo json_encode([
         "sucesso" => true,
@@ -643,11 +542,6 @@ if ($acao === "listar_unidades") {
 
     exit;
 }
-
-
-/*
-LISTAR HORÁRIOS
-*/
 
 if ($acao === "listar_horarios") {
 
@@ -674,14 +568,11 @@ if ($acao === "listar_horarios") {
             hora_inicio
     ";
 
-
     $consulta =
         $pdo->query($sql);
 
-
     $horarios =
         $consulta->fetchAll();
-
 
     echo json_encode([
         "sucesso" => true,
@@ -691,66 +582,46 @@ if ($acao === "listar_horarios") {
     exit;
 }
 
-
-/*
-LISTAR TURMAS
-*/
-
 if ($acao === "listar_turmas") {
 
     $sql = "
         SELECT
             t.id_turma,
             t.nome_turma,
-
             m.id_modalidade,
             m.nome AS modalidade,
-
             u.id_unidade,
             u.nome AS unidade,
-
             p.id_professor,
             p.nome_completo AS professor,
-
             h.id_horario,
             h.dia_semana,
             h.hora_inicio,
             h.hora_fim,
-
             t.limite_vagas,
             t.vagas_disponiveis,
             t.ativo
-
         FROM turmas t
-
         INNER JOIN modalidades m
             ON m.id_modalidade = t.id_modalidade
-
         INNER JOIN unidades u
             ON u.id_unidade = t.id_unidade
-
         LEFT JOIN professores p
             ON p.id_professor = t.id_professor
-
         INNER JOIN horarios h
             ON h.id_horario = t.id_horario
-
         WHERE t.ativo = TRUE
-
         ORDER BY
             m.nome,
             h.dia_semana,
             h.hora_inicio
     ";
 
-
     $consulta =
         $pdo->query($sql);
 
-
     $turmas =
         $consulta->fetchAll();
-
 
     echo json_encode([
         "sucesso" => true,
@@ -760,17 +631,11 @@ if ($acao === "listar_turmas") {
     exit;
 }
 
-
-/*
-BUSCAR TURMA
-*/
-
 if ($acao === "buscar_turma") {
 
     $id = intval(
         $_GET["id"] ?? 0
     );
-
 
     if ($id <= 0) {
 
@@ -784,58 +649,43 @@ if ($acao === "buscar_turma") {
         exit;
     }
 
-
     $sql = "
         SELECT
             t.id_turma,
             t.nome_turma,
             t.limite_vagas,
             t.vagas_disponiveis,
-
             m.id_modalidade,
             m.nome AS modalidade,
-
             u.id_unidade,
             u.nome AS unidade,
-
             p.id_professor,
             p.nome_completo AS professor,
-
             h.id_horario,
             h.dia_semana,
             h.hora_inicio,
             h.hora_fim
-
         FROM turmas t
-
         INNER JOIN modalidades m
             ON m.id_modalidade = t.id_modalidade
-
         INNER JOIN unidades u
             ON u.id_unidade = t.id_unidade
-
         LEFT JOIN professores p
             ON p.id_professor = t.id_professor
-
         INNER JOIN horarios h
             ON h.id_horario = t.id_horario
-
         WHERE t.id_turma = ?
     ";
 
-
     $consulta =
         $pdo->prepare($sql);
-
 
     $consulta->execute([
         $id
     ]);
 
-
     $turma =
         $consulta->fetch();
-
 
     if (!$turma) {
 
@@ -849,7 +699,6 @@ if ($acao === "buscar_turma") {
         exit;
     }
 
-
     echo json_encode([
         "sucesso" => true,
         "turma" => $turma
@@ -858,11 +707,6 @@ if ($acao === "buscar_turma") {
     exit;
 }
 
-
-/*
-CADASTRAR INSCRIÇÃO
-*/
-
 if ($acao === "cadastrar_inscricao") {
 
     $dados = json_decode(
@@ -870,18 +714,15 @@ if ($acao === "cadastrar_inscricao") {
         true
     );
 
-
     $idAluno =
         intval(
             $dados["id_aluno"] ?? 0
         );
 
-
     $idTurma =
         intval(
             $dados["id_turma"] ?? 0
         );
-
 
     if (
         $idAluno <= 0 ||
@@ -898,11 +739,9 @@ if ($acao === "cadastrar_inscricao") {
         exit;
     }
 
-
     try {
 
         $pdo->beginTransaction();
-
 
         $sqlTurma = "
             SELECT
@@ -913,19 +752,15 @@ if ($acao === "cadastrar_inscricao") {
             FOR UPDATE
         ";
 
-
         $consulta =
             $pdo->prepare($sqlTurma);
-
 
         $consulta->execute([
             $idTurma
         ]);
 
-
         $turma =
             $consulta->fetch();
-
 
         if (!$turma) {
 
@@ -940,6 +775,25 @@ if ($acao === "cadastrar_inscricao") {
 
             exit;
         }
+
+        if ($acao === "cadastrar_inscricao") {
+
+    if (!$turma) {
+
+        $pdo->rollBack();
+
+        http_response_code(404);
+
+        echo json_encode([
+            "sucesso" => false,
+            "mensagem" => "Turma não encontrada."
+        ]);
+
+        exit;
+    }
+
+    exit;
+}
 
 
         if (
@@ -956,7 +810,6 @@ if ($acao === "cadastrar_inscricao") {
             exit;
         }
 
-
         $verificar = $pdo->prepare("
             SELECT id_inscricao
             FROM inscricoes
@@ -965,12 +818,10 @@ if ($acao === "cadastrar_inscricao") {
                 AND id_turma = ?
         ");
 
-
         $verificar->execute([
             $idAluno,
             $idTurma
         ]);
-
 
         if ($verificar->fetch()) {
 
@@ -983,7 +834,6 @@ if ($acao === "cadastrar_inscricao") {
 
             exit;
         }
-
 
         $sql = "
             INSERT INTO inscricoes
@@ -1002,16 +852,13 @@ if ($acao === "cadastrar_inscricao") {
             )
         ";
 
-
         $consulta =
             $pdo->prepare($sql);
-
 
         $consulta->execute([
             $idAluno,
             $idTurma
         ]);
-
 
         $atualizar = $pdo->prepare("
             UPDATE turmas
@@ -1020,20 +867,16 @@ if ($acao === "cadastrar_inscricao") {
             WHERE id_turma = ?
         ");
 
-
         $atualizar->execute([
             $idTurma
         ]);
 
-
         $pdo->commit();
-
 
         echo json_encode([
             "sucesso" => true,
             "mensagem" => "Inscrição realizada com sucesso."
         ]);
-
 
     } catch (PDOException $erro) {
 
@@ -1045,72 +888,50 @@ if ($acao === "cadastrar_inscricao") {
             "sucesso" => false,
             "mensagem" => "Erro ao realizar inscrição."
         ]);
-
     }
 
     exit;
 }
 
-
-/*
-LISTAR INSCRIÇÕES
-*/
-
 if ($acao === "listar_inscricoes") {
 
     $sql = "
         SELECT
-
             i.id_inscricao,
             i.data_inscricao,
             i.status,
             i.observacao,
-
             a.id_aluno,
             a.nome_completo AS aluno,
-
             t.id_turma,
             t.nome_turma,
-
             m.id_modalidade,
             m.nome AS modalidade,
-
             u.id_unidade,
             u.nome AS unidade,
-
             h.dia_semana,
             h.hora_inicio,
             h.hora_fim
-
         FROM inscricoes i
-
         INNER JOIN alunos a
             ON a.id_aluno = i.id_aluno
-
         INNER JOIN turmas t
             ON t.id_turma = i.id_turma
-
         INNER JOIN modalidades m
             ON m.id_modalidade = t.id_modalidade
-
         INNER JOIN unidades u
             ON u.id_unidade = t.id_unidade
-
         INNER JOIN horarios h
             ON h.id_horario = t.id_horario
-
         ORDER BY
             i.data_inscricao DESC
     ";
 
-
     $consulta =
         $pdo->query($sql);
 
-
     $inscricoes =
         $consulta->fetchAll();
-
 
     echo json_encode([
         "sucesso" => true,
@@ -1120,18 +941,12 @@ if ($acao === "listar_inscricoes") {
     exit;
 }
 
-
-/*
-LISTAR FREQUÊNCIAS
-*/
-
 if ($acao === "listar_frequencias") {
 
     $idInscricao =
         intval(
             $_GET["id_inscricao"] ?? 0
         );
-
 
     if ($idInscricao <= 0) {
 
@@ -1145,7 +960,6 @@ if ($acao === "listar_frequencias") {
         exit;
     }
 
-
     $sql = "
         SELECT
             id_frequencia,
@@ -1158,19 +972,15 @@ if ($acao === "listar_frequencias") {
         ORDER BY data_aula DESC
     ";
 
-
     $consulta =
         $pdo->prepare($sql);
-
 
     $consulta->execute([
         $idInscricao
     ]);
 
-
     $frequencias =
         $consulta->fetchAll();
-
 
     echo json_encode([
         "sucesso" => true,
@@ -1180,11 +990,6 @@ if ($acao === "listar_frequencias") {
     exit;
 }
 
-
-/*
-REGISTRAR FREQUÊNCIA
-*/
-
 if ($acao === "registrar_frequencia") {
 
     $dados = json_decode(
@@ -1192,30 +997,25 @@ if ($acao === "registrar_frequencia") {
         true
     );
 
-
     $idInscricao =
         intval(
             $dados["id_inscricao"] ?? 0
         );
-
 
     $dataAula =
         trim(
             $dados["data_aula"] ?? ""
         );
 
-
     $presente =
         isset($dados["presente"])
             ? (bool)$dados["presente"]
             : false;
 
-
     $observacao =
         trim(
             $dados["observacao"] ?? ""
         );
-
 
     if (
         $idInscricao <= 0 ||
@@ -1231,7 +1031,6 @@ if ($acao === "registrar_frequencia") {
 
         exit;
     }
-
 
     try {
 
@@ -1255,10 +1054,8 @@ if ($acao === "registrar_frequencia") {
                 observacao = VALUES(observacao)
         ";
 
-
         $consulta =
             $pdo->prepare($sql);
-
 
         $consulta->execute([
             $idInscricao,
@@ -1267,12 +1064,10 @@ if ($acao === "registrar_frequencia") {
             $observacao
         ]);
 
-
         echo json_encode([
             "sucesso" => true,
             "mensagem" => "Frequência registrada com sucesso."
         ]);
-
 
     } catch (PDOException $erro) {
 
@@ -1282,16 +1077,10 @@ if ($acao === "registrar_frequencia") {
             "sucesso" => false,
             "mensagem" => "Erro ao registrar frequência."
         ]);
-
     }
 
     exit;
 }
-
-
-/*
-SAIR / TESTE DE API
-*/
 
 if ($acao === "teste") {
 
@@ -1305,14 +1094,497 @@ if ($acao === "teste") {
     exit;
 }
 
-
-/*
-AÇÃO NÃO ENCONTRADA
-*/
-
 http_response_code(404);
 
 echo json_encode([
     "sucesso" => false,
     "mensagem" => "Ação da API não encontrada."
 ]);
+
+if ($acao === "solicitar_recuperacao") {
+
+    $dados = json_decode(
+        file_get_contents("php://input"),
+        true
+    );
+
+    $email = trim(
+        $dados["email"] ?? ""
+    );
+
+    if (
+        empty($email) ||
+        !filter_var($email, FILTER_VALIDATE_EMAIL)
+    ) {
+
+        http_response_code(400);
+
+        echo json_encode([
+            "sucesso" => false,
+            "mensagem" => "Informe um e-mail válido."
+        ]);
+
+        exit;
+    }
+
+    $consulta = $pdo->prepare("
+        SELECT
+            u.id_usuario,
+            u.tipo,
+            a.nome_completo,
+            a.email
+        FROM usuarios u
+        INNER JOIN alunos a
+            ON a.id_usuario = u.id_usuario
+        WHERE
+            a.email = ?
+            AND u.tipo = 'aluno'
+            AND u.ativo = TRUE
+            AND a.ativo = TRUE
+        LIMIT 1
+    ");
+
+    $consulta->execute([
+        $email
+    ]);
+
+    $usuario = $consulta->fetch();
+
+    if (!$usuario) {
+
+        $consulta = $pdo->prepare("
+            SELECT
+                u.id_usuario,
+                u.tipo,
+                p.nome_completo,
+                p.email
+            FROM usuarios u
+            INNER JOIN professores p
+                ON p.id_usuario = u.id_usuario
+            WHERE
+                p.email = ?
+                AND u.tipo = 'professor'
+                AND u.ativo = TRUE
+                AND p.ativo = TRUE
+            LIMIT 1
+        ");
+
+        $consulta->execute([
+            $email
+        ]);
+
+        $usuario = $consulta->fetch();
+    }
+
+    if (!$usuario) {
+
+        echo json_encode([
+            "sucesso" => true,
+            "mensagem" =>
+                "Se houver uma conta associada a este e-mail, " .
+                "você receberá um link para redefinir sua senha."
+        ]);
+
+        exit;
+    }
+
+
+    try {
+
+        $limpar = $pdo->prepare("
+            DELETE FROM recuperacao_senha
+            WHERE id_usuario = ?
+        ");
+
+        $limpar->execute([
+            $usuario["id_usuario"]
+        ]);
+
+        $token = bin2hex(
+            random_bytes(32)
+        );
+
+        $tokenHash = hash(
+            "sha256",
+            $token
+        );
+
+        $expiraEm = date(
+            "Y-m-d H:i:s",
+            time() + (20 * 60)
+        );
+
+
+        $inserir = $pdo->prepare("
+            INSERT INTO recuperacao_senha
+            (
+                id_usuario,
+                token_hash,
+                expira_em
+            )
+            VALUES
+            (
+                ?,
+                ?,
+                ?
+            )
+        ");
+
+        $inserir->execute([
+            $usuario["id_usuario"],
+            $tokenHash,
+            $expiraEm
+        ]);
+
+        $linkRecuperacao =
+            "http://localhost/SELPE/redefinir_senha.html?token=" .
+            urlencode($token);
+
+        require_once __DIR__ . "/vendor/autoload.php";
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+        $mail->isSMTP();
+
+        $mail->Host =
+            "smtp.gmail.com";
+
+        $mail->SMTPAuth =
+            true;
+
+        $mail->Username =
+            "SEU_EMAIL@gmail.com";
+
+        $mail->Password =
+            "SUA_SENHA_DE_APP";
+
+        $mail->SMTPSecure =
+            PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+
+        $mail->Port =
+            587;
+
+        $mail->setFrom(
+            "SEU_EMAIL@gmail.com",
+            "SELPE - Secretaria de Esportes e Lazer"
+        );
+
+        $mail->addAddress(
+            $usuario["email"],
+            $usuario["nome_completo"]
+        );
+
+        $mail->Subject =
+            "Recuperação de senha - SELPE";
+
+        $mail->isHTML(true);
+
+        $mail->Body = "
+
+            <div style=\"
+                font-family: Arial, Helvetica, sans-serif;
+                max-width: 600px;
+                margin: 0 auto;
+                color: #111111;
+            \">
+
+                <div style=\"
+                    border-top: 8px solid #13852b;
+                    padding: 30px;
+                    background-color: #ffffff;
+                \">
+
+                    <h1 style=\"
+                        color: #1477d4;
+                        margin-bottom: 10px;
+                    \">
+                        SELPE
+                    </h1>
+
+                    <p>
+                        Olá,
+                        <strong>
+                            " .
+                            htmlspecialchars(
+                                $usuario["nome_completo"],
+                                ENT_QUOTES,
+                                "UTF-8"
+                            ) .
+                        "
+                        </strong>.
+                    </p>
+
+                    <p>
+                        Recebemos uma solicitação para
+                        redefinir a senha da sua conta.
+                    </p>
+
+                    <p>
+                        Clique no botão abaixo para
+                        criar uma nova senha:
+                    </p>
+
+                    <p style=\"
+                        text-align: center;
+                        margin: 30px 0;
+                    \">
+
+                        <a
+                            href=\"" .
+                            htmlspecialchars(
+                                $linkRecuperacao,
+                                ENT_QUOTES,
+                                "UTF-8"
+                            ) .
+                            "\"
+                            style=\"
+                                display: inline-block;
+                                padding: 14px 25px;
+                                background-color: #1477d4;
+                                color: #ffffff;
+                                text-decoration: none;
+                                font-weight: bold;
+                            \"
+                        >
+                            REDEFINIR MINHA SENHA
+                        </a>
+
+                    </p>
+
+                    <p style=\"
+                        color: #666666;
+                        font-size: 14px;
+                    \">
+
+                        Este link ficará disponível por
+                        <strong>20 minutos</strong>
+                        e poderá ser utilizado apenas uma vez.
+
+                    </p>
+
+                    <p style=\"
+                        color: #666666;
+                        font-size: 14px;
+                    \">
+
+                        Se você não solicitou a recuperação
+                        da senha, simplesmente ignore este e-mail.
+
+                    </p>
+
+                    <hr>
+
+                    <p style=\"
+                        color: #999999;
+                        font-size: 12px;
+                    \">
+
+                        SELPE - Secretaria de Esportes e Lazer de Peruíbe
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        ";
+
+        $mail->AltBody =
+            "Olá, " .
+            $usuario["nome_completo"] .
+            ".\n\n" .
+            "Recebemos uma solicitação para redefinir " .
+            "a senha da sua conta.\n\n" .
+            "Acesse o seguinte endereço:\n\n" .
+            $linkRecuperacao .
+            "\n\n" .
+            "O link expira em 20 minutos.\n\n" .
+            "Se você não solicitou a recuperação, " .
+            "ignore este e-mail.";
+
+        $mail->send();
+
+
+        echo json_encode([
+            "sucesso" => true,
+            "mensagem" =>
+                "Se houver uma conta associada a este e-mail, " .
+                "você receberá um link para redefinir sua senha."
+        ]);
+
+    } catch (Throwable $erro) {
+
+        error_log(
+            "Erro na recuperação de senha: " .
+            $erro->getMessage()
+        );
+
+        http_response_code(500);
+
+        echo json_encode([
+            "sucesso" => false,
+            "mensagem" =>
+                "Não foi possível enviar o e-mail de recuperação."
+        ]);
+    }
+
+    exit;
+}
+
+if ($acao === "redefinir_senha") {
+
+    $dados = json_decode(
+        file_get_contents("php://input"),
+        true
+    );
+
+    $token = trim(
+        $dados["token"] ?? ""
+    );
+
+    $novaSenha =
+        $dados["senha"] ?? "";
+
+
+    if (
+        empty($token) ||
+        empty($novaSenha)
+    ) {
+
+        http_response_code(400);
+
+        echo json_encode([
+            "sucesso" => false,
+            "mensagem" =>
+                "Token e nova senha são obrigatórios."
+        ]);
+
+        exit;
+    }
+
+    if (strlen($novaSenha) < 8) {
+
+        http_response_code(400);
+
+        echo json_encode([
+            "sucesso" => false,
+            "mensagem" =>
+                "A senha deve possuir pelo menos 8 caracteres."
+        ]);
+
+        exit;
+    }
+
+    $tokenHash = hash(
+        "sha256",
+        $token
+    );
+
+
+    try {
+
+        $consulta = $pdo->prepare("
+            SELECT
+                id_recuperacao,
+                id_usuario,
+                expira_em
+            FROM recuperacao_senha
+            WHERE
+                token_hash = ?
+                AND usado_em IS NULL
+                AND expira_em > NOW()
+            LIMIT 1
+        ");
+
+        $consulta->execute([
+            $tokenHash
+        ]);
+
+        $recuperacao =
+            $consulta->fetch();
+
+
+        if (!$recuperacao) {
+
+            http_response_code(400);
+
+            echo json_encode([
+                "sucesso" => false,
+                "mensagem" =>
+                    "O link de recuperação é inválido ou expirou."
+            ]);
+
+            exit;
+        }
+
+
+        /*
+         * Hash seguro da nova senha.
+         */
+
+        $senhaHash = password_hash(
+            $novaSenha,
+            PASSWORD_DEFAULT
+        );
+
+        $pdo->beginTransaction();
+
+
+        $atualizar = $pdo->prepare("
+            UPDATE usuarios
+            SET senha = ?
+            WHERE id_usuario = ?
+        ");
+
+        $atualizar->execute([
+            $senhaHash,
+            $recuperacao["id_usuario"]
+        ]);
+
+
+        /*
+         * Marca o token como utilizado.
+         */
+
+        $marcarUsado = $pdo->prepare("
+            UPDATE recuperacao_senha
+            SET usado_em = NOW()
+            WHERE id_recuperacao = ?
+        ");
+
+        $marcarUsado->execute([
+            $recuperacao["id_recuperacao"]
+        ]);
+
+
+        $pdo->commit();
+
+
+        echo json_encode([
+            "sucesso" => true,
+            "mensagem" =>
+                "Senha alterada com sucesso."
+        ]);
+
+    } catch (Throwable $erro) {
+
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+
+        error_log(
+            "Erro ao redefinir senha: " .
+            $erro->getMessage()
+        );
+
+        http_response_code(500);
+
+        echo json_encode([
+            "sucesso" => false,
+            "mensagem" =>
+                "Não foi possível alterar a senha."
+        ]);
+    }
+
+    exit;
+}
