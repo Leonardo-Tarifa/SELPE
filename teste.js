@@ -173,8 +173,9 @@ function abrirPainel(usuario) {
 
         alert(
             "Login realizado!\n\n" +
-            "Área do aluno será criada na próxima etapa."
+            "Você será redirecionado."
         );
+        window.location.href = "aluno.html"
 
         return;
     }
@@ -184,8 +185,10 @@ function abrirPainel(usuario) {
 
         alert(
             "Login realizado!\n\n" +
-            "Área do professor será criada na próxima etapa."
+            "Você será redirecionado."
+
         );
+        window.location.href = "professor.html";
 
         return;
     }
