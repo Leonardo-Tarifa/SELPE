@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Recuperar senha - SELPE</title>
+
+    <link
+        rel="stylesheet"
+        href="cadastro_selpe.css"
+    >
+
+</head>
+
+<body>
+
+    <div id="aplicacao">
+
+        <section class="tela tela-login">
+
+            <div class="pagina pagina-recuperacao">
+
+                <header class="cabecalho">
+
+                    <div class="logo-container">
+
+                        <img
+                            src="img/logo.png"
+                            alt="Logo SELPE"
+                            class="logo-imagem"
+                        >
+
+                    </div>
+
+
+                    <div class="nome-logo">
+
+                        <span class="azul">sel</span><span class="verde">pe</span>
+
+                    </div>
+
+
+                    <p class="subtitulo">
+
+                        SECRETARIA DE ESPORTES E LAZER
+                        <br>
+                        DE PERUÍBE
+
+                    </p>
+
+                </header>
+
+
+                <main class="area-login">
+
+                    <h1>
+                        RECUPERAR SENHA
+                    </h1>
+
+
+                    <p class="texto-recuperacao">
+
+                        Esqueceu sua senha?
+                        <br>
+                        Informe o e-mail cadastrado para receber
+                        um link de recuperação.
+
+                    </p>
+
+
+                    <form
+                        id="formRecuperacao"
+                        onsubmit="solicitarRecuperacao(event)"
+                    >
+
+                        <div class="campo">
+
+                            <label for="email">
+                                E-mail
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Digite seu e-mail"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="acoes acoes-recuperacao">
+
+                            <button
+                                type="submit"
+                                class="botao-acessar"
+                                id="btnRecuperar"
+                            >
+                                ENVIAR LINK
+                            </button>
+
+                        </div>
+
+
+                        <p
+                            id="mensagem"
+                            class="mensagem"
+                            aria-live="polite"
+                        ></p>
+
+                    </form>
+
+
+                    <a
+                        href="index.html"
+                        class="link-voltar"
+                    >
+                        VOLTAR PARA O LOGIN
+                    </a>
+
+                </main>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <script src="recuperacao.js"></script>
+
+</body>
+
+</html>
