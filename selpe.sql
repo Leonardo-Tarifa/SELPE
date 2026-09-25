@@ -181,6 +181,23 @@ CREATE TABLE frequencias (
     CONSTRAINT uk_frequencia
         UNIQUE (id_inscricao, data_aula)
 );
+CREATE TABLE recuperacao_senha (
+    id_recuperacao INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    token_hash CHAR(64) NOT NULL,
+    expira_em DATETIME NOT NULL,
+    usado_em DATETIME NULL,
+    criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    INDEX idx_token_hash (token_hash),
+    INDEX idx_usuario (id_usuario),
+
+    CONSTRAINT fk_recuperacao_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES usuarios(id_usuario)
+        ON DELETE CASCADE
+);
+
 
 INSERT INTO usuarios (login, senha, tipo)
 VALUES
