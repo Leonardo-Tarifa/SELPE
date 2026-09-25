@@ -177,7 +177,6 @@ function abrirPainel(usuario) {
         );
         window.location.href = "aluno.html"
 
-        return;
     }
 
 
@@ -190,7 +189,6 @@ function abrirPainel(usuario) {
         );
         window.location.href = "professor.html";
 
-        return;
     }
 
 }
