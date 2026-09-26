@@ -421,7 +421,7 @@ async function sair() {
     } finally {
 
         window.location.href =
-            "login.html";
+            "selpe.html";
     }
 }
 
