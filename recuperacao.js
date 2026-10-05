@@ -1,5 +1,3 @@
-E o recuperacao.js correspondente:
-
 const API = "../api.php";
 
 
