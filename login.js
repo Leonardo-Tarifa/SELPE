@@ -197,8 +197,63 @@ function abrirPainel(usuario) {
 
 function abrirCadastro() {
 
-    window.location.href = "cadastro.html"
+   window.location.href = "cadastro.html"
 }
+
+
+async function cadastrarAluno(dados) {
+
+    try {
+
+        const resposta = await fetch(
+            `${API}?acao=cadastrar_aluno`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(dados)
+            }
+        );
+
+
+        const resultado =
+            await resposta.json();
+
+
+        if (resultado.sucesso) {
+
+            alert(
+                resultado.mensagem +
+                "\n\nLogin: " +
+                resultado.login +
+                "\nSenha: " +
+                resultado.senha
+            );
+
+        } else {
+
+            alert(
+                resultado.mensagem
+            );
+
+        }
+
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        alert(
+            "Erro ao realizar cadastro."
+        );
+
+    }
+
+}
+
 
 async function listarModalidades() {
 
