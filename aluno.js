@@ -428,6 +428,92 @@ async function sair() {
 document.addEventListener(
     "DOMContentLoaded",
     function() {
-        verificarAluno();
+        carregarAlunoLogado();
+    }
+);
+
+function carregarAlunoLogado() {
+
+    const usuarioSalvo =
+        localStorage.getItem("selpe_usuario");
+
+    if (!usuarioSalvo) {
+
+        alert("Nenhum aluno está logado.");
+
+        window.location.href = "selpe.html";
+
+        return;
+    }
+
+    try {
+
+        const aluno =
+            JSON.parse(usuarioSalvo);
+
+        const nome =
+            aluno.nome_completo || "Aluno";
+
+        const nomeTopo =
+            document.querySelector(".aluno-top strong");
+
+        if (nomeTopo) {
+            nomeTopo.textContent = nome;
+        }
+
+        const tituloAluno =
+            document.querySelector("#inicio .welcome h1");
+
+        if (tituloAluno) {
+            tituloAluno.textContent =
+                "Olá, " + nome + "!";
+        }
+
+        const avatar =
+            document.querySelector(".avatar");
+
+        if (avatar) {
+
+            const partes =
+                nome.trim().split(/\s+/);
+
+            let iniciais = "";
+
+            if (partes.length >= 2) {
+
+                iniciais =
+                    partes[0].charAt(0) +
+                    partes[partes.length - 1].charAt(0);
+
+            } else {
+
+                iniciais =
+                    partes[0].charAt(0);
+            }
+
+            avatar.textContent =
+                iniciais.toUpperCase();
+        }
+
+    } catch (erro) {
+
+        console.error(
+            "Erro ao carregar aluno:",
+            erro
+        );
+
+        localStorage.removeItem(
+            "selpe_usuario"
+        );
+
+        window.location.href =
+            "selpe.html";
+    }
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+        carregarAlunoLogado();
     }
 );
